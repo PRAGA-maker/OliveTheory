@@ -1,13 +1,24 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:scontent-dfw5-2.xx.fbcdn.net)",
-      "WebFetch(domain:ai.meta.com)",
-      "WebFetch(domain:arxiv.org)",
+      "*",
       "WebSearch",
-      "WebFetch(domain:annahung31.github.io)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.x.ai)",
+      "WebFetch(domain:ai.google.dev)",
+      "WebFetch(domain:docs.cloud.google.com)",
+      "WebFetch(domain:ai.meta.com)",
+      "WebFetch(domain:huggingface.co)",
+      "WebFetch(domain:openneuro.org)",
       "WebFetch(domain:zenodo.org)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:scholar.google.com)",
+      "WebFetch(domain:annahung31.github.io)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo *)"
     ]
   }
 }

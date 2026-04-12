@@ -3,15 +3,15 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "tribev2"
+name = "olivetheory"
 version = "0.1.0"
-description = "Deep multimodal brain encoding"
+description = "Brain encoding + music emotion research workspace"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {file = "LICENSE"}
-authors = [{name = "Meta Platforms, Inc."}]
+authors = [{name = "Praneel Patel"}]
 
 dependencies = [
+  # tribev2 core
   "neuralset==0.0.2",
   "neuraltrain==0.0.2",
   "torch>=2.5.1,<2.7",
@@ -26,15 +26,17 @@ dependencies = [
   "langdetect",
   "spacy",
   "soundfile",
-  "pip",
   "Levenshtein",
   "julius",
-  "transformers"
+  "transformers",
+  # research CLIs
+  "openai>=1.0.0",
+  "google-genai>=1.0.0",
+  "python-dotenv>=1.0.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/facebookresearch/tribev2"
-Repository = "https://github.com/facebookresearch/tribev2"
+Repository = "https://github.com/PRAGA-maker/OliveTheory"
 
 [project.optional-dependencies]
   plotting = [

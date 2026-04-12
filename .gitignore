@@ -33,3 +33,9 @@ wandb/
 
 # OS
 .DS_Store
+
+# Secrets
+.env
+
+# Research outputs
+outputs/
