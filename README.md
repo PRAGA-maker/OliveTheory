@@ -1,116 +1,73 @@
-<div align="center">
+# OliveTheory
 
-# TRIBE v2
+Research workspace for bridging music emotion to brain activity.
 
-**A Foundation Model of Vision, Audition, and Language for In-Silico Neuroscience**
+## Quick Start
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/facebookresearch/tribev2/blob/main/tribe_demo.ipynb)
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+1. **Clone** — `git clone https://github.com/PRAGA-maker/OliveTheory.git`
+2. **Add keys** — copy `.env.example` to `.env` and fill in your API keys
+3. **Go** — `uv sync && claude`
 
-📄 [Paper](https://ai.meta.com/research/publications/a-foundation-model-of-vision-audition-and-language-for-in-silico-neuroscience/) ▶️ [Demo](https://aidemos.atmeta.com/tribev2/) | 🤗 [Weights](https://huggingface.co/facebook/tribev2)
+## What This Is
 
-</div>
+TRIBE v2 (Meta/FAIR) predicts fMRI brain activity from movie audio. MusER (Ji et al.) decomposes symbolic music into emotion-disentangled latent spaces. Neither was designed to talk to the other. This repo is figuring out whether and how they can.
 
-TRIBE v2 is a deep multimodal brain encoding model that predicts fMRI brain responses to naturalistic stimuli (video, audio, text). It combines state-of-the-art text, audio and video models into a unified Transformer architecture that maps multimodal representations onto the cortical surface.
+## The Suspicion
 
-## Quick start
+> Movie soundtracks contain music. TRIBE v2 already learned brain responses to that music (it trained on 1000+ hours of fMRI from people watching movies, listening to podcasts). MusER can decompose the emotional structure of music into interpretable elements (pitch, velocity, tempo, chord, duration, beat → valence/arousal). If we align these two over the same movie audio, we should be able to ask: **which musical elements predict activity in which brain regions?**
+>
+> "Velocity predicts amygdala" or "tempo aligns with motor cortex" would be a neuroscience finding — derived from existing models, no new fMRI data needed.
+>
+> The key insight is that the audio soundtracks decompose well — they already have music baked in (scores, soundtrack, incidental music across 100+ hours of content). Demucs can source-separate it, basic-pitch can MIDI-transcribe it, and then we're in MusER's input space.
 
-Load a pretrained model from HuggingFace and predict brain responses to a video:
+## The Gap
 
-```python
-from tribev2 import TribeModel
+The models don't share a representation space. Connecting them means:
 
-model = TribeModel.from_pretrained("facebook/tribev2", cache_folder="./cache")
+- **Domain validation**: Does MusER's model (trained on piano pop) generalize to movie soundtrack music? Compare CP token distributions (pitch, velocity, tempo, etc.) against EMOPIA baseline. If distributions diverge, the bridge doesn't hold.
+- **Transcription pipeline**: Movie audio → Demucs (source separation) → basic-pitch/MT3 (MIDI transcription) → MidiTok (CP tokenization). Each step introduces noise.
+- **Temporal alignment**: MusER emotion latents and TRIBE v2 brain predictions need to be aligned in time over the same movie segments. Granularity matters.
+- **Statistical test**: RSA? Element-wise regression? Something else? Needs to be simple, defensible, and produce a real finding — not just a correlation.
 
-df = model.get_events_dataframe(video_path="path/to/video.mp4")
-preds, segments = model.predict(events=df)
-print(preds.shape)  # (n_timesteps, n_vertices)
-```
+The methodology needs to anneal. The pieces are here; the question is what the cleanest, most defensible version looks like.
 
-Predictions are for the "average" subject (see paper for details) and live on the **fsaverage5** cortical mesh (~20k vertices).
-They are offset by 5 seconds in the past, in order to compensate for the hemodynamic lag.
+## Directions to Examine
 
-You can also pass `text_path` or `audio_path` to `model.get_events_dataframe` — text is automatically converted to speech and transcribed to obtain word-level timings.
+1. **Distribution match test** — Are movie soundtracks in-domain for MusER? (Wasserstein distance on CP token distributions vs EMOPIA baseline)
+2. **MusER latent coherence** — Does MusER's VQ-VAE produce meaningful emotion clusters on out-of-sample movie music? (Silhouette Coefficient)
+3. **The bridge itself** — RSA between MusER's 7 disentangled element subspaces and TRIBE v2's predicted brain activity per region. Element-level decomposition is what makes this publishable.
+4. **Controls** — Music-heavy vs dialogue-only segments (positive), visual cortex vs auditory (negative), permutation null (shuffle time alignment)
 
-For a full walkthrough with brain visualizations, see the [Colab demo notebook](https://colab.research.google.com/github/facebookresearch/tribev2/blob/main/tribe_demo.ipynb).
+## Implementation Notes
 
-## Installation
+- **CLI Tools:** `xai_cli.py` (Grok — cheap, fast, great for search) and `gemini_cli.py` (Gemini — long context, deep research)
+- **Browser:** Chrome MCP tools for interactive paper reading and web research
+- **Dependency mgmt:** `uv`
+- **Agent protocol:** See `CLAUDE.md` for the research operating manual
+- **Python:** 3.14 on this machine. torch + CUDA works. basic-pitch/demucs/fast_transformers need a 3.11 env.
 
-**Basic** (inference only):
-```bash
-pip install -e .
-```
-
-**With brain visualization**:
-```bash
-pip install -e ".[plotting]"
-```
-
-**With training dependencies** (PyTorch Lightning, W&B, etc.):
-```bash
-pip install -e ".[training]"
-```
-
-## Training a model from scratch
-
-### 1. Set environment variables
-
-Configure data/output paths and Slurm partition (or edit `tribev2/grids/defaults.py` directly):
-
-```bash
-export DATAPATH="/path/to/studies"
-export SAVEPATH="/path/to/output"
-```
-
-
-### 2. Run training
-
-**Local test run:**
-```bash
-python -m tribev2.grids.test_run
-```
-
-**Grid search on Slurm:**
-```bash
-python -m tribev2.grids.run_cortical
-python -m tribev2.grids.run_subcortical
-```
-
-## Project structure
+## Structure
 
 ```
-tribev2/
-├── main.py              # Experiment pipeline: Data, TribeExperiment
-├── model.py             # FmriEncoder: Transformer-based multimodal→fMRI model
-├── pl_module.py         # PyTorch Lightning training module
-├── demo_utils.py        # TribeModel and helpers for inference from text/audio/video
-├── eventstransforms.py  # Custom event transforms (word extraction, chunking, …)
-├── utils.py             # Multi-study loading, splitting, subject weighting
-├── utils_fmri.py        # Surface projection (MNI / fsaverage) and ROI analysis
-├── grids/
-│   ├── defaults.py      # Full default experiment configuration
-│   └── test_run.py      # Quick local test entry point
-├── plotting/            # Brain visualization (PyVista & Nilearn backends)
-└── studies/             # Dataset definitions (Algonauts2025, Lahner2024, …)
+.
+├── CLAUDE.md              # Research operating instructions
+├── .claude/               # Claude settings (permissions, etc.)
+├── .env.example           # API key template (copy to .env)
+├── xai_cli.py             # Grok API CLI (think + web search)
+├── gemini_cli.py          # Gemini API CLI (think + deep research)
+├── papers/                # Reference papers and text extractions
+│   ├── tribev2.pdf        # TRIBE v2 paper (full 27 pages)
+│   └── tribev2.txt        # Text extraction of above
+├── tribev2/               # TRIBE v2 source (facebookresearch, local dep)
+├── bench.py               # GPU benchmarking script
+├── outputs/               # Auto-generated research outputs (gitignored)
+└── pyproject.toml         # Project config (uv)
 ```
 
-## Contributing to open science
+## Key References
 
-If you use this software, please share your results with the broader research community using the following citation:
-
-```bibtex
-@article{dAscoli2026TribeV2,
-  title={A foundation model of vision, audition, and language for in-silico neuroscience},
-  author={d'Ascoli, St{\'e}phane and Rapin, J{\'e}r{\'e}my and Benchetrit, Yohann and Brookes, Teon and Begany, Katelyn and Raugel, Jos{\'e}phine and Banville, Hubert and King, Jean-R{\'e}mi},
-  year={2026}
-}
-```
-
-## License
-
-This project is licensed under CC-BY-NC-4.0. See [LICENSE](LICENSE) for details.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for how to get involved.
+- **TRIBE v2**: [Paper](https://ai.meta.com/research/publications/a-foundation-model-of-vision-audition-and-language-for-in-silico-neuroscience/) | [Code](https://github.com/facebookresearch/tribev2) | [Weights](https://huggingface.co/facebook/tribev2)
+- **MusER**: [Paper](https://arxiv.org/abs/2312.10307) | [Code](https://github.com/Tayjsl97/MusER) | [Checkpoints](https://huggingface.co/TaylorJi/MusER)
+- **EMOPIA**: [Dataset](https://annahung31.github.io/EMOPIA/) (1,087 piano clips with valence-arousal labels)
+- **MidiTok**: [Docs](https://miditok.readthedocs.io/) (Compound Word tokenization)
+- **Demucs**: [Code](https://github.com/facebookresearch/demucs) (Meta's source separation)
