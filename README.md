@@ -1,98 +1,57 @@
 # OliveTheory
 
-Half of 988 Suicide Hotline callers hang up before reaching a counselor. We're building a computational framework to predict and prevent that.
+Half of 988 Suicide Hotline callers hang up before reaching a counselor. We think the right hold music -- chosen with actual neuroscience, not vibes -- could change that.
 
-## Quick Start
+## Setup
 
-1. **Clone** — `git clone https://github.com/PRAGA-maker/OliveTheory.git`
-2. **Add keys** — copy `.env.example` to `.env` and fill in your API keys
-3. **Go** — `uv sync && claude`
-
-## The Problem
-
-A person calls 988. They're put on hold. At some point, the subjective cost of waiting exceeds the discounted value of reaching a counselor -- and they hang up. This is escape motivation: the computational decision to terminate an ongoing aversive state.
-
-This isn't abstract. Millner et al. (2018) formalized escape vs. avoidance via RL+DDM, showing escape as a starting-point bias (w_escape) toward the "go" boundary. The neural substrates are mapped: ventral anterior insula (psychological pain signal), dACC/MCC (effort cost / urgency), vmPFC (persistence value / future discounting), PAG (reactive escape execution). In entrapment states -- which describe suicidal callers well (Gilbert & Allan, 1998) -- vAI hyperactivates while vAI-SFG connectivity degrades, meaning top-down control over the escape impulse fails.
-
-The question: can we computationally model this decision process and intervene with targeted acoustic stimuli (hold music) to shift the decision boundary toward persistence?
-
-## The Approach
-
-### 1. Computational Phenotype of Abandonment
-
-Model hang-up as an RLDDM process:
-```
-Hang-up probability(t) = f(Escape Urgency - Persistence Value)
-
-Parameters:
-  w_escape     — starting-point bias toward hang-up (vAI activation)
-  v_drift      — evidence accumulation rate
-  alpha_neg    — learning rate for "waiting is futile" (dACC-striatal)
-  k_loss       — loss aversion amplifier (anterior insula; elevated in attempters)
-  UF           — unrecoverable fatigue accumulation (MFG/RCZa)
+```bash
+cp .env.example .env   # add your XAI_API_KEY and GEMINI_API_KEY
+uv sync && claude
 ```
 
-### 2. fMRI Encoding → Brain Response Prediction
+## What's going on
 
-This is where TRIBE v2 comes in. It predicts whole-brain fMRI responses from audio/video/text stimuli, trained on 1000+ hours across 720 subjects. We can use it to predict how a given person's brain responds to specific acoustic stimuli -- without putting them in a scanner during a crisis.
+When someone calls 988 and gets put on hold, they're making a continuous decision: stay or hang up. At some point the pain of waiting wins and they leave. This is escape motivation -- the brain's process for deciding to terminate an aversive situation.
 
-### 3. Music Emotion Decomposition → Targeted Intervention
+This isn't hand-wavy. There's a real computational literature on how the brain makes this kind of decision: reinforcement learning models that track how quickly someone learns "waiting is futile," drift-diffusion models that measure how biased someone is toward quitting before they even start, and fMRI work showing which regions encode the cost of staying vs. the value of what you're waiting for. Millner et al. (2018) formalized escape vs. avoidance in exactly this framework. Mobbs mapped the neural switch from deliberative patience to reactive flight. Doré showed how entrapment -- which is basically the psychological state of a suicidal caller -- degrades the brain's ability to override the impulse to bail.
 
-MusER decomposes music into emotion-disentangled elements (pitch, velocity, tempo, chord → valence/arousal). If we can map which musical elements drive activity in which escape-relevant brain regions (vmPFC, vAI, dACC), we can design hold music that:
-- **Upregulates vmPFC** (increase persistence value / patience)
-- **Downregulates vAI** (reduce psychological pain signal)
-- **Restores vAI-SFG connectivity** (top-down control over escape impulse)
+So the pieces exist. What doesn't exist is anyone connecting them to the actual problem: what is happening in someone's brain during hold music, and can we pick music that makes them more likely to stay?
 
-### 4. The Bridge
+## What we need to figure out
 
-TRIBE v2 and MusER were never designed to talk to each other. The bridge:
-- Movie soundtracks already contain music that TRIBE v2 learned brain responses to
-- Demucs source-separates the music → basic-pitch transcribes to MIDI → MidiTok tokenizes to MusER's input format
-- MusER's 7 disentangled element subspaces can then be correlated with TRIBE v2's per-region brain predictions
-- This tells us: which musical features predict which brain region activity
+**Measuring escape motivation from a physiological signal.** We need a way to estimate how close someone is to hanging up -- ideally from something we can actually observe or predict, not something that requires putting a crisis caller in a scanner. The mechanistic literature gives us candidates (vAI activation, dACC effort-cost signals, vmPFC persistence), but we need to figure out how to get from "these brain regions do this" to "we can predict hang-up probability from an audio response model."
 
-## Constraint Relaxation
+**Whether brain encoding models generalize to this.** TRIBE v2 (Meta) can predict fMRI brain activity from audio. It was trained on people watching movies and listening to podcasts -- not people in crisis on hold. But Wav2Vec-BERT (its audio backbone) is general-purpose, and the model demonstrates zero-shot generalization to novel tasks. The question is whether its predictions are meaningful enough in this context to be useful.
 
-The full target (predicting hang-up in actively suicidal callers) requires phased validation:
+**How to decompose music into the features that matter.** If we're going to design hold music that targets specific neural responses, we need to know which musical features drive which brain responses. MusER (Ji et al.) decomposes symbolic music into emotion-relevant elements -- pitch, velocity, tempo, chord -- and maps them to valence/arousal. The question is whether these decompositions, aligned temporally with TRIBE v2's brain predictions over the same audio, actually tell us anything real. "Velocity dynamics predict amygdala activation" would be a finding. "Everything correlates a little" would not.
 
-1. **Phase 1 — Proof of concept** (acute stress, non-clinical): Induce entrapment via unsolvable task. Validate RLDDM w_escape predicts quitting behavior.
-2. **Phase 2 — Clinical validation** (suicidal ideators, non-acute): Demonstrate vAI-SFG connectivity predicts persistence in effort-based tasks.
-3. **Phase 3 — Target population** (attempters / actively suicidal): Acoustic intervention modulates PAG/vmPFC transition per Mobbs defensive-distance model.
+**Relaxing constraints to make progress.** The target population (actively suicidal, on hold) is about as hard as it gets for research. The existing literature suggests a ladder: start with stressed non-clinical populations, validate in suicidal ideators, then move to the target. Each step needs to carry the computational framework forward, not just be a separate study.
 
-## Directions to Examine
+## Intuitions & guidelines
 
-1. **MusER ↔ TRIBE v2 bridge** — Which musical elements predict which brain regions? Domain validation (are movie soundtracks in-distribution for MusER?), temporal alignment, RSA.
-2. **Escape motivation parameterization** — Can we extract RLDDM parameters from TRIBE v2's predicted brain responses? Map w_escape to vAI activation patterns.
-3. **Acoustic intervention design** — Which acoustic features (tempo, dissonance, predictability) drive vmPFC activation in high-entrapment phenotypes?
-4. **MVT framing** — Model hang-up as optimal patch-leaving (Marginal Value Theorem). Individual leaving thresholds, switching costs, average reward rate.
+- The RLDDM framework (reinforcement learning + drift-diffusion) is the right computational language for this. It gives us mechanistically grounded parameters that map to specific neural substrates and predict specific behaviors (quit timing, persistence).
+- Music is the intervention because it's the only thing we control during the hold. But "music" is too vague -- we need to think in terms of specific acoustic features driving specific neural targets (vmPFC upregulation for persistence, vAI downregulation for pain reduction).
+- The movie soundtrack angle is real: TRIBE v2's training data has 100+ hours of audio with music baked in. That music is the bridge between "what does this sound do to a brain" and "what musical features drove that response."
+- Every claim needs a citation. Every mechanism needs prior fMRI evidence. This isn't speculative -- it's connecting established results in a new configuration.
+- Be honest about what's a stretch and what's solid. The computational neuroscience of escape motivation is solid. The music-to-brain-region mapping is plausible but unvalidated. The application to crisis callers is the stretch goal.
 
-## Key References
-
-- **Escape/Avoidance Computation**: Millner et al. 2018; Fontanesi et al. 2019
-- **Pain-Avoidance Learning**: Oba et al. 2024
-- **Loss Aversion in Attempters**: Liu et al. 2022
-- **Entrapment Theory**: Gilbert & Allan 1998; DeLisle & Williams 2012
-- **Entrapment Neural Signature**: Doré et al. 2023
-- **Persistence/Quit Decision**: Goldfarb et al. 2020; Shen et al. 2015
-- **Defensive Hierarchy**: Mobbs et al. 2020
-- **fMRI Neurofeedback**: Olson et al. 2024; Misaki et al. 2023
-- **TRIBE v2**: [Paper](https://ai.meta.com/research/publications/a-foundation-model-of-vision-audition-and-language-for-in-silico-neuroscience/) | [Code](https://github.com/facebookresearch/tribev2)
-- **MusER**: [Paper](https://arxiv.org/abs/2312.10307) | [Code](https://github.com/Tayjsl97/MusER)
-
-## Structure
+## What's here
 
 ```
-.
-├── CLAUDE.md              # Research operating instructions
-├── .claude/               # Claude settings (permissions)
-├── .env.example           # API key template (copy to .env)
-├── xai_cli.py             # Grok API CLI (think + web search)
-├── gemini_cli.py          # Gemini API CLI (think + deep research)
-├── papers/                # Reference papers
-│   ├── tribev2.pdf        # TRIBE v2 paper (27 pages)
-│   └── tribev2.txt        # Text extraction
-├── tribev2/               # TRIBE v2 source (local dep)
-├── bench.py               # GPU benchmarking
-├── outputs/               # Research outputs (gitignored)
-└── pyproject.toml         # Project config (uv)
+tribev2/          # TRIBE v2 brain encoding model (facebookresearch, local dep)
+papers/           # Reference papers and text extractions
+bench.py          # GPU benchmarking
+xai_cli.py        # Grok API -- search + reasoning
+gemini_cli.py     # Gemini API -- deep research + long context
+CLAUDE.md         # Research operating instructions
 ```
+
+## Key references
+
+- Millner et al. 2018 -- Escape vs. avoidance via RL+DDM
+- Mobbs et al. 2020 -- Defensive hierarchy, vmPFC→PAG transition
+- Doré et al. 2023 -- Entrapment neural signature (vAI-SFG connectivity)
+- Goldfarb et al. 2020 -- Persistence/quit decisions, unrecoverable fatigue
+- Gilbert & Allan 1998 -- Entrapment theory
+- TRIBE v2 -- [paper](https://ai.meta.com/research/publications/a-foundation-model-of-vision-audition-and-language-for-in-silico-neuroscience/) / [code](https://github.com/facebookresearch/tribev2)
+- MusER -- [paper](https://arxiv.org/abs/2312.10307) / [code](https://github.com/Tayjsl97/MusER)
