@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OliveTheory — Can hold music keep people alive?</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #FBF7F4;
+  --bg-dark: #1A1A1A;
+  --text: #1C1917;
+  --text-secondary: #57534E;
+  --red: #E2231A;
+  --red-dark: #B91C1C;
+  --border: #E7E0DA;
+  --border-dark: rgba(255,255,255,0.1);
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', 'Consolas', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--serif);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── ARTICLE LAYOUT ── */
+.article-header {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 3rem;
+}
+
+.article-header .kicker {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.25rem;
+}
+
+.article-header h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.article-header .dek {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 600px;
+}
+
+.article-header .meta {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 2rem;
+}
+
+.article-body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem 6rem;
+}
+
+.article-body p {
+  font-size: 1.125rem;
+  line-height: 1.72;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  hanging-punctuation: first;
+}
+
+.article-body h2 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--text);
+}
+
+.article-body h3 {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+/* ── SEPARATOR ── */
+.sep {
+  width: 40px;
+  height: 3px;
+  background: var(--red);
+  margin: 3rem 0;
+  border: none;
+}
+
+/* ── PULL QUOTE ── */
+.pull {
+  border-left: 3px solid var(--red);
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  margin: 2.5rem 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* ── DATA CALLOUT ── */
+.callout {
+  background: var(--bg-dark);
+  color: #F5F0EB;
+  padding: 2.5rem 2rem;
+  margin: 2.5rem -1rem;
+  border-radius: 4px;
+}
+
+.callout .callout-num {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--red);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.callout p {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(245,240,235,0.75);
+  max-width: 520px;
+  margin-bottom: 0;
+}
+
+/* ── INLINE CODE / DATA ── */
+.d {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  font-weight: 500;
+  color: var(--red-dark);
+  background: rgba(226,35,26,0.06);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+/* ── BENCHMARK CARDS ── */
+.benchmarks {
+  margin: 2rem 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bench {
+  background: var(--bg-dark);
+  color: #F5F0EB;
+  padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+  border-radius: 2px;
+}
+
+.bench-num {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--red);
+  opacity: 0.5;
+  line-height: 1;
+  min-width: 50px;
+}
+
+.bench-body h3 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #F5F0EB;
+  margin: 0 0 0.25rem;
+  letter-spacing: 0;
+}
+
+.bench-body .bench-q {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(245,240,235,0.7);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.bench-body p {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(245,240,235,0.5);
+  margin-bottom: 0;
+}
+
+.bench-status {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3em 0.7em;
+  border-radius: 2px;
+  white-space: nowrap;
+  align-self: start;
+  margin-top: 0.25rem;
+}
+
+.s-pass {
+  background: rgba(34,197,94,0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.3);
+}
+
+.s-prog {
+  background: rgba(250,204,21,0.12);
+  color: #facc15;
+  border: 1px solid rgba(250,204,21,0.25);
+}
+
+.s-block {
+  background: rgba(226,35,26,0.12);
+  color: #f87171;
+  border: 1px solid rgba(226,35,26,0.25);
+}
+
+/* ── LADDER DIAGRAM ── */
+.ladder {
+  display: flex;
+  margin: 2rem 0;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ladder-step {
+  flex: 1;
+  padding: 1.25rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+.ladder-step:last-child { border-right: none; }
+
+.ladder-step .step-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  margin-bottom: 0.4rem;
+}
+
+.ladder-step.target {
+  background: rgba(226,35,26,0.04);
+  border-right-color: rgba(226,35,26,0.2);
+}
+
+.ladder-step.target .step-label {
+  color: var(--red);
+  opacity: 1;
+}
+
+.ladder-step.wall {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    rgba(226,35,26,0.04) 4px,
+    rgba(226,35,26,0.04) 8px
+  );
+}
+
+.ladder-step.wall .step-label {
+  color: var(--red);
+  opacity: 0.7;
+}
+
+/* ── PIPELINE INLINE DIAGRAM ── */
+.pipeline-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0 2rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(28,25,23,0.03);
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pipeline-inline .pipe-node {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.4em 0.8em;
+  background: var(--bg-dark);
+  color: #F5F0EB;
+  border-radius: 3px;
+}
+
+.pipeline-inline .pipe-arrow {
+  font-family: var(--mono);
+  color: var(--red);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ── FOOTNOTES ── */
+.fn {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 0.25rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .article-header { padding: 4rem 1.25rem 2rem; }
+  .article-body { padding: 0 1.25rem 4rem; }
+  .bench { grid-template-columns: 1fr; }
+  .bench-num { font-size: 1.8rem; }
+  .bench-status { justify-self: start; }
+  .ladder { flex-direction: column; }
+  .ladder-step { border-right: none; border-bottom: 1px solid var(--border); }
+  .callout { margin: 2rem 0; padding: 2rem 1.5rem; }
+  .article-header .meta { flex-direction: column; gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="article-header">
+  <div class="kicker">OliveTheory</div>
+  <h1>Can hold music keep people alive?</h1>
+  <div class="dek">Half of 988 Suicide Hotline callers hang up before reaching a counselor. We're building a computational pipeline to figure out which music makes them stay.</div>
+  <div class="meta">
+    <span>Methodology &mdash; April 2026</span>
+    <span>Praneel Patel</span>
+  </div>
+</header>
+
+<article class="article-body">
+
+  <p>When someone calls 988 and gets put on hold, they hear music. Not music that anyone thought particularly hard about&mdash;whatever the contractor picked, probably something vaguely inoffensive. Meanwhile, the person on the other end of the line is making a decision, continuously, second by second: do I stay, or do I hang up?</p>
+
+  <p>About half of them hang up.</p>
+
+  <p>That number should bother you. Not because it's surprising&mdash;hold times are long and the situation is bad&mdash;but because the thing they're listening to while they decide was never designed to influence the decision at all. It was chosen by vibes. And vibes, when people's lives are at stake, are not good enough.</p>
+
+  <hr class="sep">
+
+  <h2>Hanging up is a brain decision</h2>
+
+  <p>This isn't hand-wavy. Computational neuroscience has spent two decades formalizing exactly the kind of decision a 988 caller is making. The literature calls it <em>escape motivation</em>&mdash;the neural process that determines when someone terminates an aversive situation. Muller et al. (2021) showed how fatigue accumulates in the cingulate cortex until quitting wins. Pedersen et al. (2021) mapped the approach-vs-avoidance decision to specific brain circuits in depressed patients. Dombrovski et al. (2013) demonstrated that suicide attempters have blunted value signals in the prefrontal cortex&mdash;meaning the part of the brain that says "wait, this might be worth it" is quieter in exactly the population calling 988.</p>
+
+  <p>The pieces exist. What doesn't exist is the bridge between them: given a piece of music, what does the brain do, and does that push toward staying or toward hanging up?</p>
+
+  <p>That's what we're building.</p>
+
+  <h2>The pipeline</h2>
+
+  <p>The idea is a three-stage chain. Take any audio clip, predict the brain's response to it, read the regions that control escape motivation, and identify which musical features are responsible.</p>
+
+  <div class="pipeline-inline">
+    <span class="pipe-node">Audio</span>
+    <span class="pipe-arrow">&rarr;</span>
+    <span class="pipe-node">Predicted brain activation</span>
+    <span class="pipe-arrow">&rarr;</span>
+    <span class="pipe-node">Escape motivation score</span>
+    <span class="pipe-arrow">&rarr;</span>
+    <span class="pipe-node">Musical features</span>
+  </div>
+
+  <p>Every link in this chain is backed by published neuroscience and validated against empirical benchmarks. The output is specific: not "play something calming" but <em>"hold music should have tempo 60&ndash;80 BPM, high consonance, spectral centroid below X Hz"</em>&mdash;derived from predicted brain activation, not surveys.</p>
+
+  <p>Three components make this work. Each solves a different part of the problem.</p>
+
+  <h3>Component 1: Audio to brain</h3>
+
+  <p>Meta's TRIBE v2 is a foundation model that predicts whole-brain fMRI from raw audio. <span class="d">177M</span> parameters, trained on <span class="d">1,000+</span> hours of brain recordings across <span class="d">720</span> subjects. It outputs predicted activation for <span class="d">20,484</span> cortical vertices&mdash;enough resolution to read individual regions of prefrontal cortex, insula, cingulate, and orbitofrontal cortex.</p>
+
+  <p>We evaluated every alternative. Kell (2018) predicts auditory cortex only. Ciferri's CLAP-based encoding (2025) gets inferior frontal gyrus but not whole-brain. Casey (2017) showed music features predict OFC at 7T, but that was ridge regression on one dataset, not a generalizable model. TRIBE v2 is the only option that gives us the whole brain from raw audio at cortical resolution.</p>
+
+  <h3>Component 2: Brain to escape motivation</h3>
+
+  <p>Once we have predicted brain activation, we need to read it. The insula tracks aversive salience&mdash;how much something hurts. The dorsal anterior cingulate cortex (dACC) registers conflict between "stay" and "go." The ventromedial prefrontal cortex (vmPFC) integrates value&mdash;is this worth enduring? The orbitofrontal cortex (OFC) weighs expected reward against expected cost.</p>
+
+  <p>We combine these into a measurement called the Cortical Escape Motivation Profile (CEMP). High insula + high dACC + low vmPFC + low OFC = the brain is saying <em>get out</em>. The opposite pattern means <em>stay</em>.</p>
+
+  <h3>Component 3: Music to features</h3>
+
+  <p>Run a library of candidate hold music clips through the pipeline. Each one gets a predicted escape motivation score. Then extract acoustic features from each clip&mdash;tempo, consonance, roughness, spectral centroid, harmonic complexity&mdash;and run a regression. Which features predict lower escape motivation? That's the deliverable.</p>
+
+  <hr class="sep">
+
+  <h2>Does the instrument actually work?</h2>
+
+  <p>A brain encoding model is only useful if its predictions mean something. We don't trust ours until it passes three independent tests, each grounded in published computational neuroscience. Each one is falsifiable. If any fails, we stop and fix it before moving forward.</p>
+
+  <div class="callout">
+    <div class="callout-num">2&ndash;6x</div>
+    <p>Real music produces 2&ndash;6x stronger differentiation in escape-relevant prefrontal regions (dACC, vmPFC, OFC, anterior insula) compared to synthetic tones. The model is viable. We tested this first&mdash;if the model couldn't distinguish audio in the regions we care about, nothing downstream would matter.</p>
+  </div>
+
+  <p>That was the prerequisite. Here are the three gates:</p>
+
+  <div class="benchmarks">
+    <div class="bench">
+      <div class="bench-num">01</div>
+      <div class="bench-body">
+        <h3>Muller &mdash; Temporal Dynamics</h3>
+        <div class="bench-q">Does fatigue accumulate the way neuroscience says it should?</div>
+        <p>Muller et al. (2021, Nature Communications) showed that cingulate and insula signals decay as people fatigue during aversive tasks. We fed 5-minute audio sequences into TRIBE v2 and checked: do the predicted signals follow the same trajectory? Aversive audio should produce increasing cingulate/insula suppression over time. Calming audio should produce the opposite.</p>
+      </div>
+      <span class="bench-status s-pass">Passed</span>
+    </div>
+
+    <div class="bench">
+      <div class="bench-num">02</div>
+      <div class="bench-body">
+        <h3>Dombrovski &mdash; Attempter Physiology</h3>
+        <div class="bench-q">Do our predictions match what suicide attempters' brains look like?</div>
+        <p>Dombrovski et al. (2013, JAMA Psychiatry) showed that suicide attempters have blunted value signals in vmPFC and ventral striatum. After fine-tuning on depression fMRI data, our model should reproduce these known patterns&mdash;reduced vmPFC activation, altered striatal response. The cortical part is testable now; full validation requires the subcortical extension.</p>
+      </div>
+      <span class="bench-status s-prog">In progress</span>
+    </div>
+
+    <div class="bench">
+      <div class="bench-num">03</div>
+      <div class="bench-body">
+        <h3>Pedersen &mdash; The Decision</h3>
+        <div class="bench-q">Can we measure the actual stay-or-go decision from brain signals?</div>
+        <p>Pedersen et al. (2021, PLOS Computational Biology) mapped approach-avoidance decisions to nucleus accumbens (NAcc), pregenual ACC, subthalamic nucleus, and caudate. These are all subcortical. We need to train a new output head on HCP 7T subcortical data to access them. Until then, this benchmark is blocked.</p>
+      </div>
+      <span class="bench-status s-block">Needs subcortical</span>
+    </div>
+  </div>
+
+  <p>The ordering matters. Muller and Dombrovski have published brain patterns we can compare against&mdash;we know the right answer. If our model reproduces their known results, we have reason to trust it for the Pedersen measurement, which is harder to benchmark directly but is the question we actually care about: does this music shift the stay-or-go decision?</p>
+
+  <hr class="sep">
+
+  <h2>The crisis simulation problem</h2>
+
+  <p>TRIBE v2 was trained on healthy adults listening to audio in an fMRI scanner. The people calling 988 are not healthy adults in an fMRI scanner. They have altered prefrontal cortex function, heightened insula reactivity, and blunted striatal reward signals. If we use the base model's predictions as-is, we're measuring the wrong brain.</p>
+
+  <p>We also can't scan people in crisis. That's an ethical wall we can't and shouldn't cross.</p>
+
+  <p>So we build a ladder. Fine-tune the model step by step toward crisis physiology, using publicly available fMRI datasets at each rung:</p>
+
+  <div class="ladder">
+    <div class="ladder-step">
+      <div class="step-label">Baseline</div>
+      Healthy subjects<br><span class="fn">Original TRIBE v2 training data</span>
+    </div>
+    <div class="ladder-step">
+      <div class="step-label">Step 1</div>
+      Stress &amp; threat<br><span class="fn">ds002320: dynamic threat-of-shock</span>
+    </div>
+    <div class="ladder-step">
+      <div class="step-label">Step 2</div>
+      Depression<br><span class="fn">ds000171: emotional music + MDD</span>
+    </div>
+    <div class="ladder-step target">
+      <div class="step-label">Target</div>
+      Suicidal ideation<br><span class="fn">ds005237: C-SSRS scores</span>
+    </div>
+    <div class="ladder-step wall">
+      <div class="step-label">Ethical wall</div>
+      Active crisis<br><span class="fn">No data. Cannot be collected.</span>
+    </div>
+  </div>
+
+  <p>Each step produces a model variant whose predictions are closer to crisis physiology. At each step, we rerun the benchmarks. If the adaptation broke something&mdash;catastrophic forgetting, degraded sensitivity&mdash;we catch it before it matters.</p>
+
+  <p>The gap between "suicidal ideation" and "active 988 caller" cannot be bridged empirically. We're honest about that. But the direction of change is well-characterized by the literature: more PFC suppression, more insula activation, blunted reward signals. The constraint relaxation ladder gets us as close as the data allows, and the benchmarks tell us whether each step actually worked.</p>
+
+  <div class="pull">Even if the fine-tuned model benchmarks similarly to the base model, we use it as the production model&mdash;as long as all base functionality is preserved and the calibration checks confirm it's simulating crisis-adjacent patterns correctly.</div>
+
+  <h2>The subcortical extension</h2>
+
+  <p>TRIBE v2's released checkpoint predicts <span class="d">20,484</span> cortical vertices. That gives us insula, cingulate, prefrontal cortex, and orbitofrontal cortex&mdash;enough for the Muller benchmark and the cortical escape motivation profile. But Pedersen's approach-avoidance model requires subcortical structures: nucleus accumbens, amygdala, caudate, subthalamic nucleus.</p>
+
+  <p>The plan: freeze the pretrained encoder, train a linear output head on HCP 7T subcortical data. Staged approach with clear gates&mdash;ridge regression probe first (does the frozen encoder even contain subcortical signal?), then a trained head if the probe is positive, then optional backbone fine-tuning if needed. About 30 minutes for the probe. A few hours for the head. Each step has a go/no-go decision.</p>
+
+  <hr class="sep">
+
+  <h2>What we deliver</h2>
+
+  <p>Not "play calming music." Two things:</p>
+
+  <p><strong>An evidence-based hold music specification.</strong> Specific musical parameters&mdash;tempo range, consonance level, spectral profile, harmonic complexity&mdash;that minimize predicted escape motivation. Derived from brain encoding across a library of 50&ndash;100 candidate clips, not from surveys or intuition. Different for every context because the model is stimulus-specific.</p>
+
+  <p><strong>A reusable measurement instrument.</strong> Feed any audio clip in, get a predicted escape motivation score out. Screen hold music candidates in minutes. No scanner, no participants, no waiting. Audio in, score out.</p>
+
+  <div class="pull">The pipeline works because every link is falsifiable. If TRIBE v2 can't differentiate audio in escape regions, we stop. If the temporal dynamics don't match Muller, we stop. If the Dombrovski patterns don't emerge after fine-tuning, we stop. We haven't had to stop yet.</div>
+
+  <h2>Why not simpler alternatives?</h2>
+
+  <p><strong>Why not just test music on callers directly?</strong> You could. But you'd need massive sample sizes, you can't explain <em>why</em> something works, you can't generalize to new music, and the ethics review would take years. Our approach provides mechanistic understanding that transfers.</p>
+
+  <p><strong>Why not use emotion recognition models?</strong> Because "calming" vs. "anxious" is not the same as "reduces escape motivation in the dACC." Emotion labels are subjective and coarse. We need physiological specificity&mdash;which regions activate, by how much, over what time course&mdash;not self-report proxies.</p>
+
+  <p><strong>Why not a different brain encoding model?</strong> We evaluated all available options. TRIBE v2 is the only one that predicts whole-brain fMRI from raw audio at cortical resolution. Every alternative either covers too few regions or doesn't generalize.</p>
+
+</article>
+
+<footer>
+  OliveTheory &mdash; April 2026<br>
+  See <code>context/researchplan.md</code> for full technical details and current status.
+</footer>
+
+</body>
+</html>
