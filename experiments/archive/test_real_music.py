@@ -18,8 +18,8 @@ import soundfile as sf
 
 
 def main():
-    from tribev2 import TribeModel
-    from tribev2.demo_utils import get_audio_and_text_events
+    from context.tribev2 import TribeModel
+    from context.tribev2.demo_utils import get_audio_and_text_events
     import pandas as pd
     from numpy.linalg import norm
     from nilearn import datasets

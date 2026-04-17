@@ -36,8 +36,8 @@ from neuralset.events.transforms import (
 )
 from neuralset.events.utils import standardize_events
 
-from tribev2.eventstransforms import ExtractWordsFromAudio
-from tribev2.main import TribeExperiment
+from context.tribev2.eventstransforms import ExtractWordsFromAudio
+from context.tribev2.main import TribeExperiment
 
 VALID_SUFFIXES: dict[str, set[str]] = {
     "text_path": {".txt"},

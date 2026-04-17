@@ -101,8 +101,8 @@ def generate_5min_stimuli():
 
 
 def main():
-    from tribev2 import TribeModel
-    from tribev2.demo_utils import get_audio_and_text_events
+    from context.tribev2 import TribeModel
+    from context.tribev2.demo_utils import get_audio_and_text_events
     import pandas as pd
     from nilearn import datasets
 

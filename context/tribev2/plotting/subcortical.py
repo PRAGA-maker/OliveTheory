@@ -19,7 +19,7 @@ from nilearn.surface import vol_to_surf
 from scipy.ndimage import gaussian_filter
 from skimage import measure
 
-from tribev2.plotting.utils import (
+from context.tribev2.plotting.utils import (
     get_cmap,
     get_scalar_mappable,
     robust_normalize,

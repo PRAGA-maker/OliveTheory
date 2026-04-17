@@ -143,7 +143,7 @@ def load_tribe_model(ckpt_dir: str, device: str = "auto"):
     Returns the TribeModel wrapper (for event processing) and the raw
     FmriEncoderModel (for feature extraction hooks).
     """
-    from tribev2 import TribeModel
+    from context.tribev2 import TribeModel
 
     if device == "auto":
         device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -183,7 +183,7 @@ def extract_latent_features(
         or 1152 for pre_bottleneck.
     """
     import pandas as pd
-    from tribev2.demo_utils import get_audio_and_text_events
+    from context.tribev2.demo_utils import get_audio_and_text_events
 
     # Build events dataframe from audio file.
     event = {

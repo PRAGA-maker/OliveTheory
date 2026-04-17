@@ -12,7 +12,7 @@ import numpy as np
 import pyvista as pv
 from neuralset.extractors.neuro import FSAVERAGE_SIZES
 
-from tribev2.utils import get_hcp_roi_indices
+from context.tribev2.utils import get_hcp_roi_indices
 
 from .base import BasePlotBrain
 from .utils import (

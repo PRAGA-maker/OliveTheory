@@ -14,7 +14,7 @@ from neuralset.extractors.neuro import FSAVERAGE_SIZES
 from nilearn.datasets import load_fsaverage
 from nilearn.plotting import plot_surf_roi, plot_surf_stat_map
 
-from tribev2.utils import get_hcp_roi_indices
+from context.tribev2.utils import get_hcp_roi_indices
 
 from .base import BasePlotBrain
 from .utils import get_cmap, get_scalar_mappable, robust_normalize, saturate_colors

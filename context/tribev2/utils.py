@@ -18,7 +18,7 @@ from neuralset.events.study import Chain, Study
 from neuralset.events.transforms import EventsBuilder, EventsTransform
 from neuralset.extractors.neuro import FSAVERAGE_SIZES
 
-from tribev2.eventstransforms import RemoveDuplicates
+from context.tribev2.eventstransforms import RemoveDuplicates
 
 FMRI_SPACES = {
     "Algonauts2025Bold": "MNI152NLIN2009C_ASYM_RES_01",

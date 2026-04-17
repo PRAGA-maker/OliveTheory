@@ -248,7 +248,7 @@ class BasePlotBrain(pydantic.BaseModel):
         import matplotlib.pyplot as plt
         from tqdm import tqdm
 
-        from tribev2.plotting.utils import robust_normalize
+        from context.tribev2.plotting.utils import robust_normalize
 
         TEXT_KEY, SOUND_KEY, VIDEO_KEY = "Text", "Audio", "Video"
 
@@ -284,7 +284,7 @@ class BasePlotBrain(pydantic.BaseModel):
         mosaic = [[f"{k}_{i}" for i in range(n_timesteps)] for k in neuro]
         height_ratios = [1 for _ in neuro]
         if show_stimuli:
-            from tribev2.plotting.utils import get_clip
+            from context.tribev2.plotting.utils import get_clip
 
             has_image = any(get_clip(segment) is not None for segment in segments)
             stimuli_mosaic = [
@@ -372,7 +372,7 @@ class BasePlotBrain(pydantic.BaseModel):
     ):
         import matplotlib.pyplot as plt
 
-        from tribev2.plotting.utils import get_audio, get_clip
+        from context.tribev2.plotting.utils import get_audio, get_clip
 
         TEXT_KEY, SOUND_KEY, VIDEO_KEY = "Text", "Audio", "Video"
 
@@ -458,7 +458,7 @@ class BasePlotBrain(pydantic.BaseModel):
             title = suptitle or f"t = {i}s"
             out_fig.suptitle(title, fontsize=14, fontweight="bold")
             if segments:
-                from tribev2.plotting.utils import get_text
+                from context.tribev2.plotting.utils import get_text
 
                 words = " ".join(get_text(segments[i]).split(" ")[-8:])
                 out_fig.text(0.1, 0.92, words, fontsize=9, ha="left", va="top")

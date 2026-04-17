@@ -75,8 +75,8 @@ def main():
     # -------------------------------------------------------------------
     # 2. Load TRIBE v2
     # -------------------------------------------------------------------
-    from tribev2 import TribeModel
-    from tribev2.demo_utils import get_audio_and_text_events
+    from context.tribev2 import TribeModel
+    from context.tribev2.demo_utils import get_audio_and_text_events
     import pandas as pd
 
     CKPT_DIR = "cache/models--facebook--tribev2/snapshots/f894e783020944dcd96e5568550afe2aa9743f9f"
