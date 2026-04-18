@@ -16,7 +16,10 @@
       "WebFetch(domain:scholar.google.com)",
       "WebFetch(domain:annahung31.github.io)",
       "WebFetch(domain:www.kimi.com)",
-      "WebFetch(domain:worksinprogress.co)"
+      "WebFetch(domain:worksinprogress.co)",
+      "WebFetch(domain:pmc.ncbi.nlm.nih.gov)",
+      "WebFetch(domain:www.google.com)",
+      "WebFetch(domain:pubmed.ncbi.nlm.nih.gov)"
     ],
     "deny": [
       "Bash(rm -rf /)",

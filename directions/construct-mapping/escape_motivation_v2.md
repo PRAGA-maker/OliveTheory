@@ -346,6 +346,250 @@ This is ONE anchor expressed as a connected trio: Karvelis (theory) + Brown (emp
 - **Sustained-decision models** (2P-Q4 just fired) — does Muller fatigue / effort-based work extend to SI/SA?
 - **Tighter audio-benchmark** (2P-Q3 cooking) — LDAEP and others, verify Q4's "blind spot" claim isn't overclaimed
 
+### Supporting context from Kleiman 2018 (Current Opinion Psychology)
+
+Just read. Validates the moment-to-moment framing:
+- SI episodes are episodic with quick onset + short duration (typically <1 hour)
+- ~1/3 of momentary SI observations differ by ≥1 SD from a few hours earlier — genuine hour-scale fluctuation
+- Hour-to-hour variability in SI nearly as large as person-to-person variability
+- **Affect (especially sadness) predicts time-lagged SI change; hopelessness/loneliness CORRELATE concurrently but DO NOT predict change.** Important: don't overweight hopelessness as a temporal mover.
+- Fluid Vulnerability Theory (Rudd 2006) — baseline with episodic peaks — fits the real-time data.
+- Law et al. 2017 RCT: repeatedly asking about SI does NOT have iatrogenic effects, validating that EMA in target pop is safe.
+
+**Takeaway for our project**: 2-minute 988 hold is squarely within the timescale of a real SI episode. The caller is potentially *in* such an episode during the hold. What we want the music to do is push them out of the peak-SI state within that window. That's biologically plausible given the episodic dynamics Kleiman documents. The "escape motivation" construct we care about is specifically the affect + action-tendency layer during these peaks, not the trait vulnerability.
+
+### Exploratory threads worth flagging (construct/measurement side, not training)
+
+Not things I'm doing — things that surfaced reading these papers and seem worth noting for the record:
+
+1. **Psychache ≈ Karvelis's "negative instrumental beliefs about state transitions"?** Shneidman: suicide is escape from unbearable psychache. Karvelis: hopelessness = strong belief that instrumental actions won't change state. These are structurally the same claim in different vocabularies. If they're equivalent, it resolves the long-standing complaint that psychache lacks mechanistic operationalization — Karvelis provides the math, Shneidman provides the phenomenological anchor.
+
+2. **Muller 2021 fatigue dynamics ≈ Karvelis belief-decay dynamics?** Muller's RCZa/RCZp cingulate signals for accumulated effort fatigue look structurally identical to Karvelis's λ (belief decay modulated by dPFC-LC via SAPEs). Both represent "accumulated evidence that my actions aren't producing desired outcomes," just interpreted in different theoretical vocabularies (effort-fatigue vs Bayesian belief updating). If they converge, Muller's repo-integrated fatigue benchmarks could be reused as an orthogonal validation for the belief-decay leg of the Karvelis framework.
+
+3. **"Caller patience" ≈ Karvelis w (stressor controllability)?** Operations term "caller patience" is just "how long will you wait before giving up." Karvelis predicts that patience depends on perceived controllability: if caller believes the counselor will arrive on a predictable timeline (high w), they stay; if they believe the wait is uncontrollable (low w), Pavlovian escape kicks in and they hang up. This maps the behavioral-health ops metric directly onto the Karvelis framework. Worth explicit writing-up later.
+
+4. **LDAEP as cheap auditory-pathway sanity check.** Park 2021/2022 showed LDAEP (auditory cortex loudness-dependence) is elevated in high-suicidality MDD. If fine-tuned TRIBE doesn't reproduce this in its auditory-cortex predictions for simulated high-SI subjects, the audio pathway is likely broken *before* we even get to the escape-motivation instrument. Quick test, clear pass/fail.
+
+5. **Audiogenic aversion framework generalization.** Millner's fork-on-slate (80-85 dB, high-freq) is pharmacologically aversive audio. 988 hold music is *mildly* aversive (aversive-by-tedium rather than aversive-by-pain). Millner's active-escape-bias findings are about decision dynamics under aversion; the construct should generalize from high-intensity noise to low-intensity stimuli, but the neural recruitment may differ. Specifically: hold music likely doesn't engage amygdala/LC as strongly as Millner's noise. This matters for which Karvelis parameters dominate — mild-aversion music probably mostly operates via m (belief decay) and w (controllability) rather than k (stress-weighted learning boost). That's actually a more tractable intervention target: shift perceived controllability with progress-of-queue transparency rather than try to flip Pavlovian escape bias via stimuli. Relevant to SAMHSA/OES 2024 "process transparency" recommendation — independent theoretical grounding for what the field has already converged on operationally.
+
+Flagging these now so they don't get lost. Not trying to commit to any of them as research direction.
+
+---
+
+## 2P-Q1 Results (Construct Nomology) — landed
+
+**Headline**: Kimi confirms **no published paper performs the comprehensive nomological network analysis we need**. "Your specific context (crisis-hotline hold scenario) is theoretically unmapped." This is a writable gap.
+
+### Four construct clusters with relative independence
+
+**Cluster 1 — Core Escape Mechanisms (negative reinforcement family)**: Iwata 1982/1994 escape motivation (molar functional class, external-target), Hayes 1996 experiential avoidance (requires verbal mediation, internal-target), Baker 2004 / Koob-LeMoal allostatic (homeostatic dysregulation), Millner 2019 active escape bias (computational DDM bias parameter), Guitart-Masip 2012 Pavlovian escape (automatic S-R).
+
+Neural overlap is *partial* on PAG-amygdala-striatal circuitry but functionally dissociable. **Hierarchically nested**: Iwata (molar class) → Hayes (+verbal mediation) → Millner (computational mechanism) → Pavlovian escape (automatic component). **Not interchangeable.**
+
+**Cluster 2 — Suicide-specific crisis (entrapment family)**: Gilbert & Allan 1998 defeat + entrapment, Shneidman 1993 psychache, Galynker SCS frantic hopelessness, Rogers & Joiner 2015-2017 ASAD.
+
+Temporal progression: **Defeat → Entrapment → Psychache → Suicidal Crisis (ASAD/SCS)**. NOT synonyms despite cross-sectional collinearity (entrapment–psychache r > 0.60). SCS ≠ ASAD: SCS is persistent/fluctuating frantic hopelessness (doesn't require SI); ASAD is spike-like rapid escalation of conscious SI.
+
+**Cluster 3 — Conflict and disengagement**: Pedersen 2021 AAC (ambivalence, simultaneous positive+negative valence), Mobbs 2020 defensive flight (urgent unidirectional PAG-mediated avoidance), Carver behavioral disengagement (motivational collapse — giving up, not active escape).
+
+**Genuinely distinct.** AAC involves wanting-reward-while-fearing-punishment; escape constructs are unidirectional negative valence.
+
+**Cluster 4 — Operations (isolated from psychological lit)**: "Caller patience / tolerance" — operationally defined as queue abandonment thresholds. **No psychological mechanism in the published literature connects it to the other clusters.** Kimi's bridge proposal: could be modeled as *temporal discounting of help-seeking* — an AAC variant where aversiveness-of-waiting is weighed against expected utility of counselor connection. But no published link to Millner / Hayes / Gilbert.
+
+### Critical construct distinctions (things I should keep straight)
+
+| Construct | Critical differentiator |
+|---|---|
+| **Escape motivation (Iwata)** | External aversive stimulus termination; behavioral topography irrelevant |
+| **Experiential avoidance (Hayes)** | Internal (thoughts/emotions) target; requires verbal mediation |
+| **Active escape bias (Millner)** | Computational starting-point bias in DDM; pre-decisional, not functional |
+| **Pavlovian escape (Guitart-Masip)** | Automatic S-R, may conflict with instrumental goals |
+| **Allostatic escape (Koob/Baker)** | Chronic recruitment during withdrawal; homeostatic dysregulation |
+| **Entrapment (Gilbert)** | Motivational BLOCKING — escape motivation present but blocked |
+| **Psychache (Shneidman)** | Phenomenological pain experience, mechanistically agnostic |
+| **Frantic hopelessness (SCS)** | Persistent urge to escape + cognitive dysregulation + hyperarousal; no SI required |
+| **ASAD (Rogers-Joiner)** | Spike-like escalation of CONSCIOUS SI + social/self-alienation + hyperarousal |
+| **AAC (Pedersen)** | Ambivalence — simultaneous + and - valence; conflict-point vacillation |
+| **Defensive flight (Mobbs)** | Urgent, reactive, PAG-mediated, subcortical (below conscious valuation) |
+| **Behavioral disengagement (Carver)** | Motivational collapse / resignation; NOT active escape |
+| **Caller patience (Lifeline)** | Pure operational metric; no psychological mechanism |
+
+### Kimi's recommended multi-level measurement design
+
+Independently converged on what we've been building:
+
+1. **Computational**: Millner RL-DDM active-escape-bias parameter → decision threshold for hanging up vs holding
+2. **Clinical**: Entrapment scale (Gilbert & Allan) → perceived inability to reach help
+3. **Physiological**: PAG/amygdala reactivity (fMRI) OR heart rate variability (parasympathetic withdrawal) → defensive flight
+4. **Operational**: Caller patience metrics (queue duration, abandonment point) → behavioral outcome
+
+This is basically the "Function 1 + Function 2" carving but with 4 levels instead of 2, and adds physiology + operational as independent validations.
+
+### Writable empirical hypothesis Kimi flagged
+
+*"Active escape bias predicts queue abandonment thresholds, mediated by entrapment and moderated by psychache intensity."*
+
+Thesis-level claim. Specifies (1) Millner param = primary predictor, (2) entrapment = mediator, (3) psychache = moderator. If we had a target-adjacent behavioral sample doing Millner's task plus self-reported entrapment+psychache plus a hold-simulation wait task, this would test.
+
+### Demote from prior candidate list
+
+- **Experiential Avoidance Model of DSH (Chapman 2006)**: confirmed as Cluster-1 construct, valid, but **internal-target framework with no fMRI validation in SI/SA as a specific construct** — it's a theoretical framework, not an instrument. Keep in the architecture as psychological framing but not as measurement anchor.
+
+---
+
+## 2P-Q2 Results (Function-1 candidate verification) — landed
+
+**Headline**: no paper currently exists with the exact Pedersen 2021 structure (NAcc=bias, pgACC=drift, STN=threshold via joint RL-DDM-fMRI) in an SI/SA population. One viable "best available" candidate: **Ji et al. 2021**.
+
+### Retractions from prior notes
+
+- **Laessing, Karvelis, Kennedy, Zai, Dayan et al. 2025 bioRxiv — FABRICATED CITATION. DOES NOT EXIST.** Kimi's first-pass Q5 confabulated the citation (with specific author names). Second-pass verified: no record in bioRxiv, PubMed, or preprint servers. **Remove from candidate list in all earlier notes/summaries.** This is a reminder that Kimi will confabulate — always verify via a second route before relying on surprisingly-perfect-fit citations.
+- **Dombrovski et al. 2024 Biol Psych "Neural Dynamics of Value-Based Option Competition in Suicidal Behavior" — DOES NOT EXIST as described.** Likely conflated with Hallquist et al. 2024 Science Advances (general population, not SI/SA). Confirmed demote (was already flagged).
+
+### Verified candidates (what actually exists)
+
+| Paper | Verified? | Sample | fMRI | Computational model | Param↔Brain mapping? | Verdict |
+|---|---|---|---|---|---|---|
+| **Pedersen 2021** PLOS CB | ✓ | 18 MDD female + 24 HC | ✓ | RL-DDM | **✓ (NAcc=z, pACC=v, STN=a, caudate=v)** | Methodology scaffold, wrong population |
+| **Ji et al. 2021** J Psych Res 139:14-24 | ✓ | 23 SA+MDD + 30 NS-MDD + 30 HC | ✓ | 4-param Bayesian BART model | **✓ (left insula = pain avoidance / risk aversion; left dlPFC = loss sensitivity)** | **Strongest target-pop candidate** but BART not DDM, correlational not joint, insula/dlPFC not subcortical DDM regions. Sample includes **recent attempters (acute, past weeks/months)**. |
+| **Dombrovski 2013** JAMA Psych | ✓ | 15 SA + 18 dep + 20 HC (late-life) | ✓ | Modified Rescorla-Wagner RL | Partial: maps model-derived *signals* (RPE, expected value) to regions — NOT parameters to regions | Late-life only, weak for instrument role |
+| **Karvelis & Diaconescu 2022** Comp Psych | ✓ | Simulation only | ✗ | Active inference MDP | Theoretical only (LC↔k, Amy↔c, dPFC-LC↔m, vmPFC-DRN↔w₀) | Useful for theoretical framework + priors, NOT empirical |
+| **Vanyukov et al. 2016** Psychol Med | ✓ | 13 SA + 13 non-SA MDD + 22 HC (late-life) | ✓ | No computational model — standard GLM | NO — precuneus/PCC for impulsivity, dlPFC for planned attempts | No comp model, fails criterion |
+| **Millner 2019** J Abnorm Psych | ✓ | 85 STB + 44 psych controls | ✗ | RL-DDM | No neural data | Behavioral only |
+| **Dombrovski & Hallquist 2022** WIREs | ✓ | Review/theoretical | — | — | — | Not empirical |
+
+### Strategic options identified by Kimi
+
+1. **Use Ji et al. 2021 as the target-pop instrument** — accept BART framework (not DDM), use insula↔uncertainty-aversion + dlPFC↔loss-sensitivity as proxy escape-motivation scores. Weakness: different regions than Pedersen's subcortical DDM circuit, correlational mapping not joint.
+2. **Use Dombrovski 2013 for the RL+neural-signal approach** (but accept signal-mapping not parameter-mapping).
+3. **Commission/use Millner 2019 behavioral paradigm with added fMRI** — task exists and validated for STB; neural version does not exist. Would require primary data collection.
+
+Kimi's bottom line: *"The literature gap you identified is real and represents a significant methodological opportunity (or necessity for de novo data collection)."*
+
+### Updated Function-1 shape
+
+- **Theoretical engine**: Karvelis 2022 (unchanged).
+- **Empirical neural evidence in target pop**: Brown 2020 (vmPFC value + connectivity) **AND Ji 2021 (insula + dlPFC in recent attempters with computational model)**. Ji is actually closer to what we want — acute sample + computational model + parameter-to-region mapping — but with BART rather than escape paradigm.
+- **Methodology scaffold**: Pedersen 2021 (unchanged) — use BOLD-as-regressor structure.
+- **Behavioral validation in target pop**: Millner 2019 (unchanged).
+- **Known gap**: no paper does all three (target pop + escape paradigm + joint fMRI-DDM parameter mapping). That's the specific open question.
+
+---
+
+## 2P-Q3 Results (Audio benchmark verification) — landed
+
+**Headline**: the "music-in-SI/SA is a blind spot" claim from Q4 **survives** scrutiny for direct music-neuroimaging, but **partially falsifies** for auditory electrophysiology broadly. LDAEP and ASR/PPI are well-studied in suicidality, just not with music as the stimulus.
+
+### Verified non-blind-spots
+
+**LDAEP in SI/SA is well-studied**:
+- **Tyron, Ip, Jørgensen & Jensen (2025) *J Affective Disorders* — meta-analysis with replication in unmedicated patients.** Authoritative most-recent synthesis.
+- Korean literature (Park 2015, Park & Lee 2013, Hwang 2021 *Clinical Psychopharmacology and Neuroscience*): serotonergic dysfunction via LDAEP in MDD+suicidality.
+- German literature (Uhl 2012, Graßnickel 2015, Juckel).
+- **Kim et al. 2021 *Sci Reports*** — explicit conclusion: "LDAEP might not be a biomarker for suicide behaviors." Mixed directionality: high LDAEP in acute SI (Hwang 2021) vs blunted in attempters (Graßnickel 2015, Cho 2023).
+- **Verdict: unreliable as standalone marker** but rich literature exists. Could still serve as cheap sanity check on TRIBE's auditory cortex predictions (does fine-tuned TRIBE reproduce *any* loudness-dependent asymmetry between simulated SI and HC?).
+
+**ASR/PPI in SI/SA**:
+- **Quednow et al. 2006 *J Affective Disorders*** — "Normal PPI/ASR in suicidal depressed patients." 60 citations. PPI doesn't stratify suicide within depression.
+- **Takahashi et al. 2011** review; **Storozheva 2025** systematic review.
+- Verdict: PPI not a useful suicide stratifier within depression.
+
+### Confirmed blind spots
+
+- **EEG/MEG music in SI/SA**: only Tan 2025 (behavioral) and Jenkins 2018 (MDD, no SI stratification). No other studies found.
+- **Jenkins 2018 follow-ups**: no SI-stratified reanalyses 2019-2026.
+- **Hold music neuroimaging in any psychiatric population**: zero studies.
+- **Multi-modal auditory biomarker panels (MMN + LDAEP + ASR + music)**: do not exist. Yin 2025 Psychoradiology meta-analysis includes LDAEP + P3 + RewP but not MMN or music.
+- **MMN in SI/SA**: emerging blind spot — mentioned as biomarker but no suicide-specific validation.
+
+### Verified papers newly surfaced (to pull next if relevant)
+
+- **Tyron et al. 2025 JAD** — LDAEP meta-analysis
+- **Tan 2025** — confirmed **published** in *J Clin Med* (pilot n=18 MDD+SI) and *PLOS Mental Health* (n=74 BMRQ + semantic differential). But neural data still in dissertation only.
+- **Yin et al. 2025 *Psychoradiology*** — meta-analysis of auditory biomarkers for suicide (LDAEP + P3 + RewP)
+- **Jandl et al. 2010 JAD** — P300 + EDA as suicide risk markers
+- **Zhou et al. 2024 J Psych Res** — P2-P3 and N2-P3 amplitudes in MDD+suicide
+- **Shukuroglou et al. 2023 J Psychopharmacology** — psilocybin + music + NAc functional connectivity in TRD. Relevant — music + reward circuit in a target-adjacent treatment-resistant sample.
+- **Sun et al. 2024 Cell Reports** — music synchronization in BNST-NAc circuit in TRD via implanted electrodes. First direct neural-music-depression data. Very relevant.
+
+### Updated Function-2 (benchmark) position
+
+**Still primarily a blind spot for music**, but the auditory electrophysiology literature offers a cheap independent sanity-check layer:
+
+- **LDAEP fine-tuning check**: does fine-tuned TRIBE reproduce *any* loudness-dependence difference in auditory cortex predictions between simulated SI and HC? Pass/fail on the auditory pathway independent of escape-motivation.
+- **Shukuroglou 2023 + Sun 2024** offer the closest-available music-reward-circuit empirical fingerprints in target-adjacent populations.
+- **Hold music neuroimaging is a total void** → if the project needs direct validation, must generate it.
+
+---
+
+## Critical methodological lesson from this session
+
+**Always verify citations via a second route before propagating.** Kimi confabulated Laessing 2025 bioRxiv in its first pass with specific author names, DOI pattern, and descriptive content. The paper does not exist. I propagated it into the v2 doc as a "critical candidate" for several messages before Q2's verification pass caught it. Ji 2021 turned out to be real (verified via PubMed with Pizzagalli as author). The lesson: every time Kimi surfaces a surprisingly-perfect-fit paper, verify via PubMed / publisher direct / independent search before building arguments on it.
+
+This is now a rule I should carry forward. Added to the `research-paper-pointers` skill (under "Red flags that the PDF you downloaded is wrong" — should extend to "Red flags that the paper doesn't exist at all").
+
+**Also discovered**: Kimi rate-limits parallel chats. Opening ~11 tabs triggered a "You already have several chats open. Please wait to finish them." modal on tab 736 that silently blocked 2P-Q4 from ever submitting to Kimi's inference backend. No error surfaced; the tab just sat idle while I thought it was streaming. For future parallel runs, keep concurrent tabs under ~8 or accept that some will silently stall. Updating `using-kimi-for-research` skill with this gotcha.
+
+---
+
+## 2P-Q5 Results (Millner-fMRI bridgeability) — landed
+
+**Headline**: Kimi evaluated six feasibility paths. Only two are live (Dombrovski Bridge + Primary Study); the rest are currently dead ends.
+
+### Path assessment summary (Kimi's verdict)
+
+| Path | Feasibility | Verdict |
+|---|---|---|
+| **1. Does it exist?** (published Millner+fMRI in SI/SA) | LOW | Does not exist. "You would be the first." |
+| **2. PIT fMRI in SI/SA as substitute** | LOW | No PIT fMRI in SI/SA. Only healthy samples (Guitart-Masip 2012). |
+| **3. Open-dataset post-hoc** (ABCD, UCLA CNP, ds001814 BART) | MEDIUM-LOW | Construct validity gap — monetary/risk paradigms ≠ escape. Could fit RL-DDM to ds001814 (Ji's BART data) but tests "RL dysfunction" generally, not escape-specifically. |
+| **4. Dombrovski Bridge** (striatal RPE → Millner's escape bias via shared RL theory) | **MEDIUM — defensible** | **Only real drop-in option.** Dombrovski 2013 striatal RPE findings in attempters + shared corticostriatothalamic circuitry argument → theoretical grounding for Millner's behavioral parameter. Weak links: mechanistic (RPE vs starting-point), population (late-life vs veteran), task (reversal vs escape). |
+| **5. Primary study** (fMRI with Millner task in SI/SA) | HIGH (resource-intensive) | Budget $150-300K, n=30-40/group, ~120 scan hrs. "If your project requires valid neural correlates of escape bias specifically, you must collect the data. No existing substitute exists." |
+| **6. Meta-analysis** | LOW-MEDIUM | Premature — too few fMRI studies of escape in SI/SA (1-2 max); ALE requires ~10+. |
+
+### Kimi's realistic recommendation
+
+**Path 4 (Dombrovski Bridge) for initial writeup/grants, Path 5 (primary data) as ultimate validation strategy. Paths 1, 2, 6 are currently dead ends.**
+
+This lines up with what I had been converging on but makes the costing explicit. $200K+ for a valid Millner-fMRI dataset is the eventual budget if we want the neural piece done right.
+
+### New candidates named
+
+- **Auerbach et al. 2021** — blunted caudate/putamen activation during reward anticipation in suicidal youth (not PIT, but target-adjacent)
+- **Dombrovski 2014** — reduced RPE signals in corticostriatothalamic networks correlated with executive control deficits (more ammunition for the Dombrovski Bridge argument)
+- **Esmaeil-Zadeh** — Raven/future imagination fMRI in suicide (for ALE meta-analysis, if ever attempted)
+
+### Ji 2021 actually read (`context/papers/ji2021_motivation_decision_suicide.pdf`)
+
+PDF pulled successfully from UCI depression institute site. Key sample details from pages 1-4:
+
+- **Sample**: n=53 MDD (23 SA + 30 NS) + 30 HC; age 16-45, right-handed, Chinese (Changsha, Central South University).
+- **All MDD recruited during ACUTE episode**, UNMEDICATED (no antidepressant or ECT in past 6mo). This is closer to acute-crisis than most comparable papers.
+- **Attempt profile explicitly described as "generally carefully planned, non-impulsive and not personality-disorder driven."** Methods diverse: wrist-cutting (n=11), jumping (n=8), overdose (n=7), hanging (n=3), immolation (n=1). Some subjects attempted more than once.
+- **Computational model**: 4-param Bayesian (φ, η, γ, τ) fit via hBayesDM. γ = risk-taking propensity; τ = inverse temperature (choice determinism).
+- **Key parameter finding**: γ lower in SA vs NS (p<0.05 by posterior distributions shown in Fig 2d). Higher pain avoidance (TDPPS) in SA vs NS.
+- **Neural findings**: 
+  - Left insula: reduced activation in SA during high-risk decision phase; modulated by pain avoidance in both SA and NS
+  - Left dlPFC: greater activation in SA during loss feedback (loss hypersensitivity)
+- **Authors' interpretation**: "Suicide as extreme choice when value estimations are compromised and emotionally overwhelmed."
+
+### Important scope note on Ji 2021 (flagged during user check-in)
+
+Ji's attempter sample is narrowly defined: **planful, non-impulsive, non-BPD-driven, acute-episode unipolar depressed, unmedicated**. This is ONE subtype of 988 caller, not all of them.
+
+Excluded by design:
+- Impulsive / BPD-driven attempt profile
+- Non-depressed acute-crisis callers (substance, interpersonal crisis, adjustment)
+- Bipolar depressed suicidality
+
+**Softening counterpoint**: Ji's primary contrast is **SA+MDD vs NS-MDD**, not SA vs HC. That's a stronger contrast than naive SA-vs-control because it controls for depression-general effects. The insula/dlPFC findings isolate suicidality-specific effects *within* a depressed sample. Much more usable than raw SA-vs-HC.
+
+**Practical implication for the project**: one-brain-model-produces-one-escape-motivation-score is too simple. We likely need subtype-specific scores (planful-depressive, impulsive, non-depressed-crisis) or at minimum explicit scoping language ("this music's score is validated for the planful-depressive subtype"). Ji covers ~the plurality of 988 caller risk profile but not the full distribution.
+
+---
+
+## End of pass-2. Final v2 doc state ready for user review.
+
 ---
 
 ## Provisional synthesis (after Q1/Q2, pending Q3/Q4/Q5)
