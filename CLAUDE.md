@@ -30,6 +30,8 @@ python gemini_cli.py think "your prompt"
 python gemini_cli.py research "deep research query"  # async deep research
 ```
 
+**Kimi (kimi.com, via Chrome MCP)**: User pays for Kimi Allegretto. K2.5 Thinking is strong at literature surveys with real Scholar citations — often better than Grok/Gemini for academic scans. Supports unlimited parallel tabs. See `.claude/skills/using-kimi-for-research.md` for the workflow (including the OS-keyboard collision gotcha and the cookie-filter workaround via console logging).
+
 **Chrome Browser (mcp tools)**: For interactive web research, reading papers, navigating datasets, checking repos. Use for anything that benefits from visual page context.
 
 **Subagents**: Use heavily for parallel research tasks. You are the principal researcher -- delegate legwork, synthesize results.
