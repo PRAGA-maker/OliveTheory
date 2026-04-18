@@ -27,11 +27,12 @@ Living document. Update as directions mature, merge, or die.
 **Blocking risk**: Low. CLAP ridge regression is a fallback regardless.
 
 ### a4. construct-mapping/
-**Pitch**: "Escape motivation" isn't a canonical construct. Map the taxonomy: entrapment (Gilbert & Allan), escape (Millner RL+DDM), defensive flight (Mobbs), fatigue-driven quitting (Muller). Pick measurable proxies, don't over-define.
-**Status**: RULER IDENTIFIED — Muller 2021 fatigue model is the best available. Maps RF→RCZp, UF→RCZa/MFG/insula, SV→VS/SFG. Parameters need behavioral fitting but REGION SIGNALS can serve as proxies from predicted fMRI. Operational definition drafted in pointers/.
-**Key question**: ~~Which construct?~~ → Muller fatigue model. Now: does TRIBE v2 have enough signal in RCZp/RCZa for this to work?
-**Dependencies**: ft-tribe-music results (do real music stimuli differentiate fatigue-encoding regions?)
-**Blocking risk**: Low — this is a framing choice that's now made. Awaiting empirical validation.
+**Pitch**: "Escape motivation" isn't a canonical construct. Map the taxonomy across behavioral-health (Iwata/Chapman), suicidology (Shneidman, Gilbert, Galynker, O'Connor), comp-psych (Millner, Pedersen, Karvelis, Brown, Ji), and operations (Lifeline caller patience). Pick a defensible measurement path given what actually exists in the literature.
+**Status**: SINGLE-ANCHOR FRAMING RETRACTED (2026-04-18). Two deep research passes (10 Kimi queries total) confirmed no paper does brain-activation→escape-motivation-parameter mapping in an SI/SA population. Closest candidate is Ji 2021 (acute depressed attempters, fMRI + 4-param Bayesian BART; insula↔pain avoidance, dlPFC↔loss sensitivity) but scoped to planful-depressive subtype. Current framework: triangulate Karvelis (theory) + Brown/Ji (target-pop neural) + Pedersen (methodology) + Millner (behavioral) + Shneidman/Gilbert (phenomenology). No single paper serves as the anchor. Full analysis in `construct-mapping/measurement_framework.md`.
+**Key question**: Given the retraction, where on the opinionated↔honest axis should the final framework sit? Primary + fallback (Karvelis-Brown-Ji triangulation as primary, brain-model-as-predictor as fallback) vs fallback-only. User decision pending.
+**Dependencies**: ft-tribe-music results still inform whether predicted fMRI in Karvelis's target regions (LC, Amy, dPFC, ACC, vmPFC) is sufficient signal. Subcortical regions (LC, DRN, Amy) are exactly where TRIBE is weakest, so subcortical training status matters more than previously thought.
+**Blocking risk**: Medium — all target-pop computational-neural data is non-acute-at-testing, so "acute crisis" validation is genuinely unavailable from existing literature and is a known scope limit to state up-front.
+**Key retractions**: Laessing 2025 bioRxiv was a Kimi hallucination (doesn't exist). Dombrovski 2024 Biol Psych is a conference abstract only. CEMP framework is superseded.
 
 ### b. muser-recon/
 **Pitch**: MusER decomposes symbolic music into emotion-relevant features (tempo, pitch, velocity, chord). Assess SOTA, coverage, and whether it's useful as the "feature language" for hotline recommendations.
@@ -62,3 +63,5 @@ Living document. Update as directions mature, merge, or die.
 | 2026-04-12 | Real music pressure test PASSED | 2-6x PFC improvement over synthetic. Insula rank 26, OFC rank 23, dACC rank 49, vmPFC rank 59. Model is viable. |
 | 2026-04-12 | Pedersen AAC-DDM is mostly subcortical | 3/4 brain regions (NAcc, STN, caudate) unavailable. pgACC drift-rate is the only cortical component. |
 | 2026-04-12 | Measurement framework: CEMP | Cortical Escape Motivation Profile. Pattern-based measure across insula/dACC/vmPFC/OFC. Validated via Muller (temporal) + Dombrovski (physiology). Applied via activation pattern, not fitted DDM. |
+| 2026-04-18 | CEMP superseded; single-anchor framing retracted | Two Kimi passes (10 queries) found no paper does brain↔param mapping in SI/SA. Frontier-based triangulation adopted: Karvelis (theory) + Brown/Ji (empirical) + Pedersen (method) + Millner (behavioral) + Shneidman/Gilbert (phenomenology). Full analysis in `construct-mapping/measurement_framework.md`. |
+| 2026-04-18 | Kimi research tooling validated | Kimi K2.5 Thinking via Chrome MCP is load-bearing for literature search. Surfaced Ji 2021, Brown 2020, Karvelis 2022. Also hallucinated Laessing 2025 (caught on second-pass verification). Rule: cross-verify every Kimi-surfaced citation via PubMed before propagating. Encoded in `.claude/skills/`. |
